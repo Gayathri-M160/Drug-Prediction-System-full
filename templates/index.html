@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Drug Prediction System</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url("/static/bk.jpg");
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            color: white;
+        }
+
+        .container {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: brightness(0.7);
+        }
+
+        h1 {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px #000;
+        }
+
+        .enter-button {
+            padding: 12px 28px;
+            font-size: 18px;
+            background-color: #ffffff;
+            color: #000000;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .enter-button:hover {
+            background-color: #dddddd;
+        }
+        .heading-animate {
+  font-size: 36px;
+  color: #fff;
+  text-align: center;
+  margin-top: 20px;
+  animation: glow 2s ease-in-out infinite alternate;
+  text-shadow: 0 0 5px #00f2ff, 0 0 10px #00f2ff, 0 0 20px #00c6ff;
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 5px #00f2ff, 0 0 10px #00f2ff;
+  }
+  to {
+    text-shadow: 0 0 10px #00f2ff, 0 0 20px #00c6ff, 0 0 30px #00c6ff;
+  }
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="heading-animate">Drug Prediction System</h1>
+
+        <a href="{{ url_for('login') }}">
+            <button class="enter-button">Enter</button>
+        </a>
+    </div>
+</body>
+</html>

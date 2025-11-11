@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Digital Healthcare Protocol - Patient Form</title>
+   <style>
+    body {
+        font-family: 'Segoe UI', Arial, sans-serif;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background: radial-gradient(circle at top right, #c8e9ff 0%, #eaf6ff 40%, #ffffff 100%);
+    }
+
+    body::before {
+        content: "";
+        position: absolute;
+        top: -70px;
+        left: -70px;
+        width: 380px;
+        height: 380px;
+        background: rgba(0, 123, 255, 0.20);
+        border-radius: 50%;
+        filter: blur(80px);
+    }
+
+    body::after {
+        content: "";
+        position: absolute;
+        bottom: -80px;
+        right: -80px;
+        width: 420px;
+        height: 420px;
+        background: rgba(0, 180, 255, 0.20);
+        border-radius: 50%;
+        filter: blur(80px);
+    }
+
+    .form-container {
+        width: 95%;
+        max-width: 550px;
+        background: rgba(255, 255, 255, 0.92);
+        backdrop-filter: blur(10px);
+        padding: 40px;
+        border-radius: 18px;
+        border: 1px solid rgba(150, 200, 255, 0.4);
+        box-shadow: 0px 8px 25px rgba(0, 80, 130, 0.18);
+        animation: fadeIn 0.7s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+        text-align: center;
+        color: #064d7c;
+        margin-bottom: 4px;
+        font-size: 28px;
+        font-weight: 700;
+        letter-spacing: 1px;
+    }
+
+    h3 {
+        text-align: center;
+        margin-top: 0;
+        margin-bottom: 25px;
+        color: #444;
+        font-weight: 500;
+    }
+
+    label {
+        margin-top: 15px;
+        font-weight: 600;
+        display: block;
+        color: #064d7c;
+    }
+
+    input, select {
+        width: 100%;
+        padding: 11px;
+        margin-top: 6px;
+        border-radius: 8px;
+        border: 1px solid #b8cce0;
+        font-size: 15px;
+        transition: 0.25s ease;
+        background: #ffffff;
+    }
+
+    input:focus, select:focus {
+        border-color: #064d7c;
+        outline: none;
+        box-shadow: 0 0 6px rgba(0, 60, 100, 0.45);
+    }
+
+    input[type="submit"] {
+        background: linear-gradient(90deg, #064d7c, #0a6fb4);
+        color: #fff;
+        font-weight: 600;
+        margin-top: 28px;
+        padding: 13px;
+        border: none;
+        cursor: pointer;
+        border-radius: 8px;
+        transition: 0.25s;
+    }
+
+    input[type="submit"]:hover {
+        background: linear-gradient(90deg, #053856, #0a598f);
+        transform: scale(1.03);
+    }
+
+    .logout {
+        position: absolute;
+        top: 22px;
+        right: 22px;
+    }
+
+    .logout a {
+        background-color: #d32f2f;
+        color: white;
+        padding: 8px 16px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: 0.2s;
+    }
+
+    .logout a:hover {
+        background-color: #b71c1c;
+    }
+</style>
+</head>
+
+<body>
+
+    <div class="logout">
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </div>
+
+    <div class="form-container">
+
+        <h1>Digital Healthcare Protocol</h1>
+        <h3>Patient Details Form</h3>
+
+        <form action="{{ url_for('predict') }}" method="post">
+
+            <label>Patient Name:</label>
+            <input type="text" name="name" required>
+
+            <label>Email:</label>
+            <input type="text" name="email" required>
+
+            <label>Phone Number:</label>
+            <input type="number" name="phone" required>
+
+            <label>Age:</label>
+            <input type="number" name="age" required>
+
+            <label>Sex:</label>
+            <select name="sex" required>
+                <option value="M">Male</option>
+                <option value="F">Female</option>
+            </select>
+
+            <label>Blood Pressure (mmHg):</label>
+            <input type="number" id="bp_val" name="bp_val" required oninput="setBPText()">
+            <input type="hidden" id="bp" name="bp" value="NORMAL">
+
+            <label>Cholesterol (mg/dL):</label>
+            <input type="number" id="chol_val" name="chol_val" required oninput="setCholText()">
+            <input type="hidden" id="chol" name="chol" value="NORMAL">
+
+            <label>Sodium (mEq/L):</label>
+            <input type="text" name="sodium" required>
+
+            <label>Potassium (mEq/L):</label>
+            <input type="text" name="potassium" required>
+
+            <label>Sugar (mg/dL):</label>
+            <input type="text" name="sugar" required>
+
+            <label>Pulse Rate (bpm):</label>
+            <input type="text" name="PulseRate" required>
+
+            <label>BMI:</label>
+            <input type="text" name="bmi" required>
+
+            <input type="submit" value="Predict Drug">
+
+        </form>
+    </div>
+
+    <script>
+        function setBPText(){
+            const v = Number(document.getElementById('bp_val').value);
+            document.getElementById('bp').value =
+                (!v && v !== 0) ? "NORMAL" :
+                (v < 80 ? "LOW" : (v <= 120 ? "NORMAL" : "HIGH"));
+        }
+
+        function setCholText(){
+            const c = Number(document.getElementById('chol_val').value);
+            document.getElementById('chol').value =
+                (!c && c !== 0) ? "NORMAL" :
+                (c < 150 ? "LOW" : (c <= 200 ? "NORMAL" : "HIGH"));
+        }
+    </script>
+
+</body>
+</html>

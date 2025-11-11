@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Doctor Dashboard</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(to right, #83a4d4, #b6fbff);
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: #0077b6;
+            color: white;
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 22px;
+        }
+
+        header a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            background: #ff4d4d;
+            padding: 8px 12px;
+            border-radius: 6px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 30px auto;
+            background: #ffffffcc;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-top: 0;
+        }
+
+        .search-box {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .search-box input {
+            padding: 8px 12px;
+            width: 250px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        table th, table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        table th {
+            background-color: #0077b6;
+            color: white;
+        }
+
+        .critical {
+            background-color: #ffcccc;
+            font-weight: bold;
+            color: #d8000c;
+        }
+
+        textarea {
+            width: 100%;
+            height: 60px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            resize: none;
+            font-family: inherit;
+            font-size: 13px;
+            padding: 5px;
+        }
+
+        .email-btn {
+            background-color: #00b894;
+            color: white;
+            border: none;
+            padding: 6px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .email-btn:hover {
+            background-color: #019474;
+        }
+
+        @media (max-width: 768px) {
+            table th, table td {
+                font-size: 12px;
+                padding: 6px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Doctor Dashboard 🩺</h1>
+    <a href="{{ url_for('doctor_logout') }}">Logout</a>
+</header>
+
+<div class="container">
+    <h2>Patient Records</h2>
+
+    <!-- 🔍 Search box -->
+    <div class="search-box">
+        <form method="GET" action="{{ url_for('doctor_dashboard') }}">
+            <input type="text" name="search" placeholder="Search by patient name..." value="{{ request.args.get('search', '') }}">
+            <button type="submit">Search</button>
+        </form>
+    </div>
+
+    <!-- 📊 Records Table -->
+    <table>
+        <thead>
+    <tr>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Sex</th>
+        <th>BP</th>
+        <th>Cholesterol</th>
+        <th>Sodium</th>
+        <th>Potassium</th>
+        <th>Sugar</th>
+        <th>Pulse Rate</th>
+        <th>BMI</th>
+        <th>Drug</th>
+        <th>Date & Time</th>
+        <th>Action</th> <!-- View report -->
+    </tr>
+</thead>
+<tbody>
+    {% if records %}
+        {% for rec in records %}
+        <tr>
+            <td>{{ rec.name }}</td>
+            <td>{{ rec.age }}</td>
+            <td>{{ rec.sex }}</td>
+            <td class="{% if rec.bp|upper == 'HIGH' %}critical{% endif %}">{{ rec.bp }}</td>
+            <td class="{% if rec.chol|upper == 'HIGH' %}critical{% endif %}">{{ rec.chol }}</td>
+            <td>{{ rec.sodium }}</td>
+            <td>{{ rec.potassium }}</td>
+            <td>{{ rec.sugar }}</td>
+            <td>{{ rec.pulse }}</td>
+            <td>{{ rec.bmi }}</td>
+            <td>{{ rec.prediction }}</td>
+            <td>{{ rec.date_time }}</td>
+            <td>
+                <form action="{{ url_for('doctor_view_report', name=rec.name) }}" method="get" style="margin:0;">
+                    <button type="submit" class="email-btn">View Report</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    {% else %}
+        <tr><td colspan="14">No records found.</td></tr>
+    {% endif %}
+</tbody>
+
+    </table>
+</div>
+</body>
+</html>

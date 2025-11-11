@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prediction Result</title>
+    <style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f5f7fa;
+        margin: 0;
+        padding: 0;
+    }
+
+    h2, h3 {
+        color: #2c3e50;
+        text-align: center;
+    }
+
+    .result-box {
+        max-width: 900px;
+        margin: 50px auto;
+        padding: 30px;
+        background: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .info-label {
+        font-weight: bold;
+        color: #333;
+    }
+
+    .prediction {
+        font-weight: bold;
+        color: green;
+        font-size: 18px;
+    }
+
+    a {
+        text-decoration: none;
+        margin: 0 10px;
+        color: #007bff;
+        font-weight: bold;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+    .banner {
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    margin-bottom: 20px;
+    font-family: 'Segoe UI', sans-serif;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.banner h1 {
+    margin: 0;
+    font-size: 28px;
+}
+
+.subtext {
+    font-size: 14px;
+    font-weight: 300;
+}
+
+.button-styled {
+    background-color: #007bff;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 5px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button-styled:hover {
+    background-color: #0056b3;
+}
+.header {
+    background-color: #004080;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    font-size: 24px;
+    border-bottom: 2px solid #003366;
+}
+
+.download-btn:hover {
+  background-color: #0056b3;
+}
+@media print {
+    .banner, .header {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        background-color: #007bff !important;
+        color: white !important;
+    }
+}
+@media print {
+    .button-styled {
+        display: none;
+    }
+}
+ @media screen and (max-width: 600px) {
+            .result-box {
+                margin: 10px;
+                padding: 20px;
+            }
+        }
+  .high { color: red; font-weight: bold; }
+  .low { color: orange; font-weight: bold; }
+  .normal { color: green; font-weight: bold; }
+
+</style
+
+</head>
+    <body>
+<div id="result-content">  
+    <div class="banner">
+        <h1>Digital Healthcare Protocol</h1>
+        <p class="subtext">AI-Based Drug Prediction System</p>
+    </div>
+
+   <div class="result-box" id="result-box">
+        <h2>Prediction Result</h2>
+
+        {% if history %}
+    <h2>Patient History for {{ name }}</h2>
+    <div id="history-table" style="max-width:100%; overflow-x:auto;">
+    <table border="1" cellpadding="8" style="width:100%; border-collapse: collapse; background:white;">
+
+            <tr>
+                <th>Name</th> 
+                <th>Email</th>
+                <th>phone</th>
+                <th>Age</th>
+                <th>Sex</th>
+                <th>BP</th>
+                <th>Cholesterol</th>
+                <th>Sodium</th>
+                <th>Potassium</th>
+                <th>Sugar</th>
+                <th>Pulse</th>
+                <th>BMI</th>
+                <th>Drug</th>
+                <th>Date & Time</th>
+
+            </tr>
+            {% for row in history %}
+    <tr>
+        {% for col in row %}
+            <td>{{ col }}</td>
+        {% endfor %}
+    </tr>
+{% endfor %}
+
+        </table>
+    </div>
+{% endif %}
+
+        <p><strong>Patient Name:</strong> {{ name }}</p>
+        <p><strong>Age:</strong> {{ age }}</p>
+        <p><strong>Phone:</strong> {{ phone }}</p>
+        <p><strong>Sex:</strong> {{ sex }}</p>
+        <p><strong>Blood Pressure:</strong> <span class="{{ bp|lower }}">{{ bp }}</span></p>
+        <p><strong>Cholesterol:</strong> <span class="{{ chol|lower }}">{{ chol }}</span></p>
+        <p><strong>Sodium:</strong> {{ sodium }}</p>
+        <p><strong>Potassium:</strong> {{ potassium }}</p>
+        <p><strong>Sugar:</strong> {{ sugar }}</p>
+        <p><strong>Pulse Rate:</strong> {{ pulse }}</p>
+        <p><strong>BMI:</strong> {{ bmi }}</p>
+        <p><strong>The predicted drug based on the provided health data is:</strong> {{ prediction }}</p>
+<p style="color: red; font-size: 14px;">
+    <em>This is a computer-generated prediction. Please consult a medical professional before taking any medication.
+        ⚠️ Medicines should be taken only after a doctor's confirmation. Do not self-medicate.</em>
+</p>
+
+<div class="drug-info-box" style="border: 1px solid #0077b6; padding: 15px; border-radius: 10px; background:#f0f8ff; margin-top:15px;">
+        <h3>Prescription Details</h3>
+<p><b>Medicine:</b> {{ drug_info.name }}</p>
+<p><b>Dosage:</b> {{ drug_info.dose }}</p>
+<p><b>When to take:</b> {{ drug_info.time }}</p>
+<p><b>Duration:</b> {{ drug_info.days }}</p>
+
+    </div>
+
+        <div class="btn-section">
+      </div>       
+    <button class="button-styled" onclick="window.print()">🖨️ Print Result</button>
+
+
+            <a href="{{ url_for('form') }}">Back to Form</a> |
+            <a href="{{ url_for('logout') }}">Logout</a>
+            {# <a href="{{ url_for('history', name=name) }}" class="btn btn-primary">View History</a> #}
+</body>
+   
+</html>

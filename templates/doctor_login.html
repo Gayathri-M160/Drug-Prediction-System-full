@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Login</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: radial-gradient(circle at top, #001f3f, #012b46, #013861);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+
+        .login-container {
+            background: rgba(255, 255, 255, 0.10);
+            backdrop-filter: blur(10px);
+            padding: 35px;
+            width: 100%;
+            max-width: 380px;
+            border-radius: 18px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+            animation: fadeIn 1s ease-in-out;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 5px;
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .icon {
+            text-align: center;
+            font-size: 45px;
+            margin-bottom: 10px;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+            100% { transform: scale(1); }
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            border: none;
+            margin-top: 5px;
+            font-size: 15px;
+            outline: none;
+            background: white;
+        }
+
+        button {
+            margin-top: 22px;
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            background: #1dd1a1;
+            border: none;
+            border-radius: 10px;
+            color: #003049;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #10ac84;
+            transform: scale(1.03);
+        }
+
+        p.error {
+            color: #ff6b6b;
+            text-align: center;
+            margin-top: 10px;
+            font-weight: 600;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="icon">🩺</div>
+        <h2>Doctor Login</h2>
+<p class="subtext">Secure access for authorized medical professionals</p>
+        <form method="POST" action="/doctor_login">
+            <label>Username</label>
+            <input type="text" name="username" required>
+
+            <label>Password</label>
+            <input type="password" name="password" required>
+
+            <button type="submit">Login</button>
+
+            {% if error %}
+                <p class="error">{{ error }}</p>
+            {% endif %}
+        </form>
+    </div>
+</body>
+</html>

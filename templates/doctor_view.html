@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Patient Detailed Report</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #eef4fb;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background: linear-gradient(90deg, #005bea, #00c6fb);
+            padding: 20px;
+            color: white;
+            text-align: center;
+            font-size: 26px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            box-shadow: 0px 3px 12px rgba(0,0,0,0.15);
+        }
+
+        .container {
+            max-width: 900px;
+            background: white;
+            margin: 40px auto;
+            padding: 25px 35px;
+            border-radius: 12px;
+            box-shadow: 0 0 25px rgba(0,0,0,0.08);
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            font-size: 22px;
+            margin-bottom: 12px;
+            border-left: 4px solid #007bff;
+            padding-left: 10px;
+            color: #003b6f;
+        }
+
+        table {
+            width: 100%;
+            border-spacing: 0 10px;
+        }
+
+        td {
+            padding: 10px 12px;
+            background: #f6f9ff;
+            border-radius: 6px;
+        }
+
+        .label {
+            font-weight: 500;
+            color: #032b54;
+            width: 35%;
+        }
+
+        .value {
+            font-weight: 400;
+            color: #000;
+        }
+
+        textarea {
+            width: 100%;
+            height: 130px;
+            border-radius: 8px;
+            border: 1px solid #aab7c4;
+            padding: 10px;
+            font-size: 15px;
+            box-sizing: border-box;
+            margin-top: 5px;
+        }
+
+        .btn {
+            background: #007bff;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 8px;
+            border: none;
+            font-size: 15px;
+            cursor: pointer;
+            margin-top: 12px;
+            transition: 0.2s;
+        }
+
+        .btn:hover { background: #0056b3; }
+
+        .btn-success {
+            background: #28a745;
+        }
+        .btn-success:hover { background: #1d7e33; }
+
+        .btn-whatsapp {
+            background: #25d366;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-size: 15px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-right: 10px;
+        }
+        .btn-whatsapp:hover { background: #1eb453; }
+
+        .btn-print {
+            background: #343a40;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 8px;
+            border: none;
+            font-size: 15px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .btn-print:hover { background: #23272b; }
+
+        .button-block {
+            margin-top: 15px;
+        }
+
+        .section-card {
+            background: #f9fbff;
+            padding: 18px;
+            border-radius: 10px;
+            margin-top: 18px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.05);
+        }
+
+        @media print {
+
+    body {
+        margin: 0;
+        background: white;
+    }
+
+    #report-area {
+        width: 210mm;
+        min-height: 297mm;
+        margin: 0 auto;
+        padding: 20mm;
+        box-sizing: border-box;
+        background: white;
+    }
+
+    .container {
+        box-shadow: none;
+        border-radius: 0;
+        padding: 0;
+    }
+
+    .btn, .btn-success, .btn-print, .btn-whatsapp {
+        display: none !important;
+    }
+}
+
+    </style>
+</head>
+<body>
+
+<div class="header">Patient Medical Report</div>
+
+<div class="container" id="report-area">
+
+    <h2>Patient Information</h2>
+    <div class="section-card">
+        <table>
+            <tr><td class="label">Name</td><td class="value">{{ name }}</td></tr>
+            <tr><td class="label">Email</td><td class="value">{{ email }}</td></tr>
+            <tr><td class="label">Age</td><td class="value">{{ age }}</td></tr>
+            <tr><td class="label">Phone</td><td class="value">{{ phone }}</td></tr>
+            <tr><td class="label">Sex</td><td class="value">{{ sex }}</td></tr>
+            <tr><td class="label">Date & Time</td><td class="value">{{ date_time }}</td></tr>
+        </table>
+    </div>
+
+    <h2>Medical Data</h2>
+    <div class="section-card">
+        <table>
+            <tr><td class="label">Blood Pressure</td><td class="value">{{ bp }}</td></tr>
+            <tr><td class="label">Cholesterol</td><td class="value">{{ chol }}</td></tr>
+            <tr><td class="label">Sodium</td><td class="value">{{ sodium }}</td></tr>
+            <tr><td class="label">Potassium</td><td class="value">{{ potassium }}</td></tr>
+            <tr><td class="label">Sugar</td><td class="value">{{ sugar }}</td></tr>
+            <tr><td class="label">Pulse</td><td class="value">{{ pulse }}</td></tr>
+            <tr><td class="label">BMI</td><td class="value">{{ bmi }}</td></tr>
+        </table>
+    </div>
+
+    <h2>Predicted Medication</h2>
+    <div class="section-card">
+        <p><b>Drug:</b> {{ drug_info.name }}</p>
+        <p><b>Dosage:</b> {{ drug_info.dose}}</p>
+        <p><b>Time:</b> {{ drug_info.time}}</p>
+    </div>
+
+    <h2>Doctor Notes</h2>
+    <div class="section-card">
+        <form method="POST" action="/doctor_save_notes">
+            <input type="hidden" name="name" value="{{ name }}">
+            <textarea name="notes" placeholder="Enter your notes here...">{{ notes }}</textarea>
+            <button class="btn" type="submit">Save Notes</button>
+        </form>
+    </div>
+
+    <h2>Email / Share</h2>
+    <div class="section-card">
+        
+        <!-- ✅ Email Button -->
+        <form method="POST" action="/doctor_send_email" style="display:inline;">
+            <input type="hidden" name="name" value="{{ name }}">
+            <input type="hidden" name="email" value="{{ email }}">
+            <input type="hidden" name="notes" value="{{ notes }}">
+            <input type="hidden" name="prediction" value="{{ prediction }}">
+            <button class="btn btn-success" type="submit"><i class="fa fa-envelope"></i> Send Email</button>
+        </form>
+
+        <!-- ✅ WhatsApp Share -->
+        <a href="https://wa.me/?text=Hello {{ name }}, your medical report prediction is {{ prediction }}. Please consult doctor for confirmation." target="_blank">
+            <button class="btn-whatsapp"><i class="fab fa-whatsapp"></i> WhatsApp</button>
+        </a>
+
+        <!-- ✅ Print Button -->
+        <button class="btn-print" onclick="window.print()"><i class="fa fa-print"></i> Print</button>
+
+    </div>
+
+</div>
+
+</body>
+</html>

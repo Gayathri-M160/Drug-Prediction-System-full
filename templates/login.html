@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - Digital HealthCare Portal</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', sans-serif;
+            height: 100vh;
+            background: linear-gradient(-45deg, #2980b9, #6dd5fa, #ffffff, #3498db);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .login-box {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+            width: 320px;
+            text-align: center;
+        }
+
+        .typing-heading {
+            font-size: 22px;
+            font-weight: bold;
+            color: #2c3e50;
+            white-space: nowrap;
+            overflow: hidden;
+            border-right: 2px solid #2c3e50;
+            width: 0;
+            margin: 0 auto 20px;
+            animation: typing 3s steps(30, end) forwards, blink 0.6s step-end infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        @keyframes blink {
+            50% { border-color: transparent; }
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        input[type="submit"] {
+            background-color: #0077b6;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #023e8a;
+        }
+
+        .error {
+            color: red;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 480px) {
+            .login-box {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-box">
+        <div class="typing-heading">Digital HealthCare Portal</div>
+        <p style="
+        color: #2c3e50; 
+        margin-top: -5px; 
+        font-size: 15px; 
+        text-align: center;
+        font-weight: 500;
+    ">
+        Please use the authorized Login ID and Password provided by the diagnostic center to access your medical services.
+    </p>
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+        <form method="POST">
+            <input type="text" name="username" placeholder="Enter Username" required>
+            <input type="password" name="password" placeholder="Enter Password" required>
+            <input type="submit" value="Login">
+        </form>
+        <p style="text-align:center; margin-top: 18px;">
+    <a href="{{ url_for('doctor_login') }}" 
+    style="
+        display:inline-flex; 
+        align-items:center; 
+        gap:8px;
+        text-decoration:none; 
+        color:white; 
+        font-weight:600; 
+        font-size:22px;
+        padding:12px 24px;
+        border-radius:12px; 
+        background:#2ecc71;
+        transition:0.3s;
+    "
+    onmouseover="this.style.background='#27ae60';"
+    onmouseout="this.style.background='#2ecc71';">
+        <span style="font-size:32px;">👨‍⚕️</span>
+        <span>Doctor Login</span>
+    </a>
+</p>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Patient History</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #eef6f9;
+            padding: 20px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #0077b6;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f1f9fb;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            font-weight: bold;
+            color: #0077b6;
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h2>Patient Prediction History</h2>
+
+    {% if records %}
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Sex</th>
+                <th>BP</th>
+                <th>Cholesterol</th>
+                <th>Na</th>
+                <th>K</th>
+                <th>Sugar</th>
+                <th>Pulse</th>
+                <th>BMI</th>
+                <th>Predicted Drug</th>
+            </tr>
+            {% for row in records %}
+            <tr>
+                {% for col in row %}
+                <td>{{ col }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p style="text-align:center;">No history available yet.</p>
+    {% endif %}
+
+    <a class="back-link" href="{{ url_for('form') }}">Back to Prediction Form</a>
+</body>
+</html>
